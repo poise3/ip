@@ -1,4 +1,6 @@
-package PACKAGE_NAME;
+public class MobiException extends Exception {
 
-public class MobiException {
+    public MobiException(String msg) {
+        super(msg);
+    }
 }

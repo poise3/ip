@@ -19,28 +19,35 @@ public class Mobi
             String command = inputs[0];
             System.out.println("____________________________________________________________");
 
-            switch (command) {
-                case "list":
-                    listHandler();
-                    break;
-                case "mark":
-                    markHandler(inputs[1]);
-                    break;
-                case "unmark":
-                    unmarkHandler(inputs[1]);
-                    break;
-                case "todo":
-                    todoHandler(inputs[1]);
-                    break;
-                case "deadline":
-                    deadlineHandler(inputs[1]);
-                    break;
-                case "event":
-                    eventHandler(inputs[1]);
-                    break;
-                default:
-                    System.out.println("please enter valid command");
+            try {
+                switch (command) {
+                    case "list":
+                        listHandler();
+                        break;
+                    case "mark":
+                        markHandler(inputs[1]);
+                        break;
+                    case "unmark":
+                        unmarkHandler(inputs[1]);
+                        break;
+                    case "todo":
+                        todoHandler(inputs[1]);
+                        break;
+                    case "deadline":
+                        deadlineHandler(inputs[1]);
+                        break;
+                    case "event":
+                        eventHandler(inputs[1]);
+                        break;
+                    default:
+                        System.out.println("please enter valid command");
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("You need to add a description for your task :)");
+            } catch (MobiException e) {
+                System.out.println(e.getMessage());
             }
+
 
             System.out.println("____________________________________________________________\n");
             userInput = scanner.nextLine();
@@ -51,24 +58,33 @@ public class Mobi
                 "____________________________________________________________\n");
     }
 
-    private static void listHandler() {
+    private static void listHandler() throws MobiException {
+        if (count == 0) throw new MobiException("You currently have no tasks :)");
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < count; i++) {
             System.out.println((i + 1) + "." + taskList[i].toString());
         }
     }
 
-    private static void markHandler(String number) {
-        int num = Integer.parseInt(number);
-        taskList[num - 1].markAsDone();
+    private static void markHandler(String number) throws MobiException {
+        try {
+            int num = Integer.parseInt(number);
+            taskList[num - 1].markAsDone();
+        } catch (NumberFormatException e) {
+            throw new MobiException("For marking, please enter a number :)");
+        }
     }
 
-    private static void unmarkHandler(String number) {
-        int num = Integer.parseInt(number);
-        taskList[num - 1].markNotDone();
+    private static void unmarkHandler(String number) throws MobiException {
+        try {
+            int num = Integer.parseInt(number);
+            taskList[num - 1].markNotDone();
+        } catch (NumberFormatException e) {
+            throw new MobiException("For unmarking, please enter a number :)");
+        }
     }
 
-    private static void todoHandler(String task) {
+    private static void todoHandler(String task) throws MobiException {
         System.out.println("Got it. I've added this task: ");
         taskList[count] = new Todo(task);
         System.out.println(taskList[count].toString());
@@ -76,19 +92,29 @@ public class Mobi
         System.out.println("Now you have " + count + " tasks in the list.");
     }
 
-    private static void deadlineHandler(String task) {
+    private static void deadlineHandler(String task) throws MobiException {
+        if (!task.contains("/by")) throw new MobiException("Please specify deadline with '/by' :)");
         String[] parts = task.trim().split("/by");
+        try {
+            taskList[count] = new Deadline(parts[0].trim(), parts[1].trim());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MobiException("You need to specify the deadline :)");
+        }
         System.out.println("Got it. I've added this task: ");
-        taskList[count] = new Deadline(parts[0].trim(), parts[1].trim());
         System.out.println(taskList[count].toString());
         count++;
         System.out.println("Now you have " + count + " tasks in the list.");
     }
 
-    private static void eventHandler(String task) {
-        String[] parts2 = task.trim().split("(/from|/to)");
+    private static void eventHandler(String task) throws MobiException {
+        if (!task.contains("/from") || !task.contains("/to")) throw new MobiException("Please specify from/to dates with '/from' and '/to' :)");
+        String[] parts = task.trim().split("(/from|/to)");
+        try {
+            taskList[count] = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MobiException("You need to specify the start/end dates :)");
+        }
         System.out.println("Got it. I've added this task: ");
-        taskList[count] = new Event(parts2[0].trim(), parts2[1].trim(), parts2[2].trim());
         System.out.println(taskList[count].toString());
         count++;
         System.out.println("Now you have " + count + " tasks in the list.");
