@@ -11,7 +11,7 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public String getName() {
+    public String toString() {
         return this.description;
     }
 
@@ -26,5 +26,6 @@ public class Task {
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("[" + this.getStatusIcon() + "] " + this.description);
     }
+
 
 }
