@@ -13,4 +13,9 @@ public class Event extends Task {
         return "[E]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (from: " + start + " to: " + end + ")";
     }
 
+    @Override
+    public String toFileString() {
+        return String.format("E | %d | %s | %s - %s", isDone ? 1 : 0, description, start, end);
+    }
+
 }

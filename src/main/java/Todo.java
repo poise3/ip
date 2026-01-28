@@ -9,4 +9,8 @@ public class Todo extends Task {
         return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString();
     }
 
+    @Override
+    public String toFileString() {
+        return String.format("T | %d | %s", isDone ? 1 : 0, description);
+    }
 }
