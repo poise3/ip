@@ -1,14 +1,22 @@
-import java.nio.file.Path;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Set;
 
 public class Mobi
 {
-    private static final ArrayList<Task> taskList = new ArrayList<>();
+    private static ArrayList<Task> taskList;
+    private static final Storage store = new Storage("./data/tasklist.txt");
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        try {
+            taskList = store.loadTasks();
+        } catch (IOException e) {
+            System.out.println("Error loading tasks :(");
+            taskList = new ArrayList<>();
+        }
 
         System.out.println("____________________________________________________________\n" +
                 " Hello! I'm Mobi\n" +
@@ -64,8 +72,13 @@ public class Mobi
         try {
             int num = Integer.parseInt(number);
             taskList.get(num - 1).markAsDone();
+            store.saveTasks(taskList);
+            System.out.println("Nice! I've marked this task as done:");
+            System.out.println("[" + taskList.get(num - 1).getStatusIcon() + "] " + taskList.get(num - 1).description);
         } catch (NumberFormatException e) {
             throw new MobiException("For marking, please enter a number :)");
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
         }
     }
 
@@ -73,14 +86,24 @@ public class Mobi
         try {
             int num = Integer.parseInt(number);
             taskList.get(num - 1).markNotDone();
+            store.saveTasks(taskList);
+            System.out.println("OK, I've marked this task as not done yet:");
+            System.out.println("[" + taskList.get(num - 1).getStatusIcon() + "] " + taskList.get(num - 1).description);
         } catch (NumberFormatException e) {
             throw new MobiException("For unmarking, please enter a number :)");
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
         }
     }
 
     private static void todoHandler(String task) throws MobiException {
+        try {
+            taskList.add(new Todo(task));
+            store.saveTasks(taskList);
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
+        }
         System.out.println("Got it. I've added this task: ");
-        taskList.add(new Todo(task));
         System.out.println(taskList.get(taskList.size() - 1).toString());
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
@@ -94,7 +117,12 @@ public class Mobi
             throw new MobiException("Invalid input (only write /by deadline once please!) :)");
         }
 
-        taskList.add(new Deadline(parts[0].trim(), parts[1].trim()));
+        try {
+            taskList.add(new Deadline(parts[0].trim(), parts[1].trim()));
+            store.saveTasks(taskList);
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
+        }
 
         System.out.println("Got it. I've added this task: ");
         System.out.println(taskList.get(taskList.size() - 1).toString());
@@ -110,7 +138,12 @@ public class Mobi
             throw new MobiException("Invalid input (only write /from and /end once please!) :)");
         }
 
-        taskList.add(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+        try {
+            taskList.add(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+            store.saveTasks(taskList);
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
+        }
 
         System.out.println("Got it. I've added this task: ");
         System.out.println(taskList.get(taskList.size() - 1).toString());
@@ -130,6 +163,13 @@ public class Mobi
         } catch (NumberFormatException e) {
             throw new MobiException("For deletion, please enter a number :)");
         }
+
+        try {
+            store.saveTasks(taskList);
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
+        }
+
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 }
