@@ -1,3 +1,4 @@
+import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Set;
@@ -28,29 +29,14 @@ public class Mobi
 
             try {
                 switch (command) {
-                    case "list":
-                        listHandler();
-                        break;
-                    case "mark":
-                        markHandler(inputs[1]);
-                        break;
-                    case "unmark":
-                        unmarkHandler(inputs[1]);
-                        break;
-                    case "todo":
-                        todoHandler(inputs[1]);
-                        break;
-                    case "deadline":
-                        deadlineHandler(inputs[1]);
-                        break;
-                    case "event":
-                        eventHandler(inputs[1]);
-                        break;
-                    case "delete":
-                        deleteHandler(inputs[1]);
-                        break;
-                    default:
-                        System.out.println("please enter valid command");
+                    case "list"-> listHandler();
+                    case "mark" -> markHandler(inputs[1]);
+                    case "unmark" -> unmarkHandler(inputs[1]);
+                    case "todo" -> todoHandler(inputs[1]);
+                    case "deadline" -> deadlineHandler(inputs[1]);
+                    case "event" -> eventHandler(inputs[1]);
+                    case "delete" -> deleteHandler(inputs[1]);
+                    default -> System.out.println("please enter valid command");
                 }
             } catch (MobiException e) {
                 System.out.println(e.getMessage());
