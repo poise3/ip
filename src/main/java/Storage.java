@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,8 +31,9 @@ public class Storage {
                 Task task;
                 switch (taskType) {
                     case "T" -> task = new Todo(parts[2].trim());
-                    case "D" -> task = new Deadline(parts[2].trim(), parts[3].trim());
-                    case "E" -> task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                    case "D" -> task = new Deadline(parts[2].trim(), DateParser.parse(parts[3].trim()));
+                    case "E" -> task = new Event(parts[2].trim(), DateParser.parse(parts[3].trim()),
+                                    DateParser.parse(parts[4].trim()));
                     default -> {
                         continue;
                     }

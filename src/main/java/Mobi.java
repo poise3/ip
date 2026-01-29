@@ -1,7 +1,13 @@
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Set;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Mobi
 {
@@ -44,6 +50,7 @@ public class Mobi
                     case "deadline" -> deadlineHandler(inputs[1]);
                     case "event" -> eventHandler(inputs[1]);
                     case "delete" -> deleteHandler(inputs[1]);
+                    case "search" -> searchHandler(inputs[1]);
                     default -> System.out.println("please enter valid command");
                 }
             } catch (MobiException e) {
@@ -118,10 +125,13 @@ public class Mobi
         }
 
         try {
-            taskList.add(new Deadline(parts[0].trim(), parts[1].trim()));
+            LocalDateTime by = DateParser.parse(parts[1].trim());
+            taskList.add(new Deadline(parts[0].trim(), by));
             store.saveTasks(taskList);
         } catch (IOException e) {
             throw new MobiException("File save error :/");
+        } catch (DateTimeParseException e) {
+            throw new MobiException("You entered the date in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
         }
 
         System.out.println("Got it. I've added this task: ");
@@ -139,10 +149,17 @@ public class Mobi
         }
 
         try {
-            taskList.add(new Event(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+            LocalDateTime start = DateParser.parse(parts[1].trim());
+            LocalDateTime end = DateParser.parse(parts[2].trim());
+            if (end.isBefore(start)) {
+                throw new MobiException("Invalid dates: end date should be after start date >:(");
+            }
+            taskList.add(new Event(parts[0].trim(), start, end));
             store.saveTasks(taskList);
         } catch (IOException e) {
             throw new MobiException("File save error :/");
+        } catch (DateTimeParseException e) {
+            throw new MobiException("You entered the dates in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
         }
 
         System.out.println("Got it. I've added this task: ");
@@ -171,5 +188,27 @@ public class Mobi
         }
 
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private static void searchHandler(String date) throws MobiException {
+        if (taskList.isEmpty()) throw new MobiException("You currently have no tasks :)");
+
+        try {
+            LocalDate tDate = DateParser.parse(date).toLocalDate();
+            System.out.println("Here are the tasks on this specific date:");
+            for (int i = 0; i < taskList.size(); i++) {
+                LocalDate lDate = null;
+                if (taskList.get(i) instanceof Deadline d) {
+                    lDate = d.getBy().toLocalDate();
+                } else if (taskList.get(i) instanceof Event e) {
+                    lDate = e.getStart().toLocalDate();
+                }
+                if (lDate != null && lDate.isEqual(tDate)) {
+                    System.out.println((i + 1) + "." + taskList.get(i).toString());
+                }
+            }
+        } catch (DateTimeParseException e) {
+            throw new MobiException("You entered the date in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
+        }
     }
 }
