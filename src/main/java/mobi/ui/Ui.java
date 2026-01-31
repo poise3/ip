@@ -1,3 +1,5 @@
+package mobi.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -5,7 +7,7 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Mobi\n" +
+                " Hello! I'm mobi.Mobi\n" +
                 " What can I do for you?\n" +
                 "____________________________________________________________\n");
     }

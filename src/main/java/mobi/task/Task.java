@@ -1,5 +1,7 @@
+package mobi.task;
+
 public abstract class Task {
-    protected String description;
+    private final String description;
     protected boolean isDone;
 
     public Task(String description) {

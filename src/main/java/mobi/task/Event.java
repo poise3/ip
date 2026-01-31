@@ -1,7 +1,7 @@
-import java.time.LocalDate;
+package mobi.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Event extends Task {
     protected LocalDateTime start;
@@ -25,7 +25,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s - %s", isDone ? 1 : 0, description, start.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
+        return String.format("E | %d | %s | %s - %s", isDone ? 1 : 0, super.toString(), start.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
                         end.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
     }
 

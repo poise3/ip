@@ -1,7 +1,7 @@
-import java.time.LocalDate;
+package mobi.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 public class Deadline extends Task {
     protected LocalDateTime  by;
@@ -23,7 +23,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("D | %d | %s | %s", isDone ? 1 : 0, description,
+        return String.format("D | %d | %s | %s", isDone ? 1 : 0, super.toString(),
                         by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
     }
 }
