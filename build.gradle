@@ -28,11 +28,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("mobi.Mobi")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveFileName = "mobi.jar"
     archiveClassifier = null
 }
 
