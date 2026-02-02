@@ -8,13 +8,34 @@ import mobi.ui.Ui;
 
 import java.io.IOException;
 
+/**
+ * Represents the todo command.
+ */
 public class TodoCommand implements Command {
     String task;
 
+    /**
+     * Initializes TodoCommand object with task description
+     *
+     * @param task the task description
+     */
     public TodoCommand(String task) {
         this.task = task;
     }
 
+    /**
+     * Executes the todo command.
+     * <p>
+     * Creates a new Todo task, saves it to a task list, updates
+     * storage and displays confirmation message to user.
+     * </p>
+     *
+     * @param tasks the current {@link TaskList}
+     * @param ui the {@link Ui} for displaying messages
+     * @param store the {@link Storage} for saving tasks
+     * @throws MobiException if the input is not a valid number
+     *                       or if saving to file fails
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         try {

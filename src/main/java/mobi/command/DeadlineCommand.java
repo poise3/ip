@@ -11,13 +11,34 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the deadline command.
+ */
 public class DeadlineCommand implements Command {
     String task;
 
+    /**
+     * Initializes DeadlineCommand object with task description
+     *
+     * @param task the task description
+     */
     public DeadlineCommand(String task) {
         this.task = task;
     }
 
+    /**
+     * Executes the deadline command.
+     * <p>
+     * Creates a new Deadline task, saves it to a task list, updates
+     * storage and displays confirmation message to user.
+     * </p>
+     *
+     * @param tasks the current {@link TaskList}
+     * @param ui the {@link Ui} for displaying messages
+     * @param store the {@link Storage} for saving tasks
+     * @throws MobiException if inputs are invalid (wrong argument/date formats)
+     *                       or if saving to file fails
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         if (!task.contains("/by")) throw new MobiException("Please specify deadline with '/by' :)");
