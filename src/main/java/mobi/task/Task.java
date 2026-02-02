@@ -25,5 +25,9 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public String getDesc() {
+        return this.description;
+    }
+
     public abstract String toFileString();
 }
