@@ -10,7 +10,7 @@ import java.io.IOException;
  * Represents the mark command.
  */
 public class MarkCommand implements Command {
-    String number;
+    private final String number;
 
     /**
      * Initializes MarkCommand object with number of task to mark

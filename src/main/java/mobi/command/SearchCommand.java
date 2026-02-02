@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
  * Represents the search command.
  */
 public class SearchCommand implements Command {
-    String date;
+    private final String date;
 
     /**
      * Initializes SearchCommand object with task description
@@ -40,7 +40,9 @@ public class SearchCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
-        if (tasks.isEmpty()) throw new MobiException("You currently have no tasks :)");
+        if (tasks.isEmpty()) {
+            throw new MobiException("You currently have no tasks :)");
+        }
 
         try {
             LocalDate tDate = DateParser.parse(date).toLocalDate();

@@ -46,8 +46,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + " to: "
-                        + end.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + ")";
+        return "[E]" + "[" + super.getStatusIcon() + "] " + super.toString()
+                + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"))
+                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + ")";
     }
 
     /**
@@ -59,8 +60,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s - %s", isDone ? 1 : 0, super.toString(), start.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
-                        end.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
+        return String.format("E | %d | %s | %s - %s", isDone ? 1 : 0, super.toString(),
+                            start.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
+                            end.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
     }
 
 }

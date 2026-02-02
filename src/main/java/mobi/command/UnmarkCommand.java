@@ -11,7 +11,7 @@ import java.io.IOException;
  * Represents the unmark command.
  */
 public class UnmarkCommand implements Command {
-    String number;
+    private final String number;
 
     /**
      * Initializes UnmarkCommand object with number of task to unmark

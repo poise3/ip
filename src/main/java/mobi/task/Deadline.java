@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * </p>
  */
 public class Deadline extends Task {
-    protected LocalDateTime  by;
+    protected LocalDateTime by;
 
     /**
      * Initializes a new Deadline task with the given description.

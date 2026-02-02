@@ -15,7 +15,7 @@ import java.time.format.DateTimeParseException;
  * Represents the deadline command.
  */
 public class DeadlineCommand implements Command {
-    String task;
+    private final String task;
 
     /**
      * Initializes DeadlineCommand object with task description

@@ -12,7 +12,7 @@ import java.io.IOException;
  * Represents the todo command.
  */
 public class TodoCommand implements Command {
-    String task;
+    private final String task;
 
     /**
      * Initializes TodoCommand object with task description
