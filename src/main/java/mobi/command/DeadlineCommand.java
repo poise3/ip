@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand implements Command {
-    String task;
+    private final String task;
 
     public DeadlineCommand(String task) {
         this.task = task;

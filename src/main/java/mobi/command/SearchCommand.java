@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class SearchCommand implements Command {
-    String date;
+    private final String date;
 
     public SearchCommand(String date) {
         this.date = date;
@@ -20,7 +20,9 @@ public class SearchCommand implements Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
-        if (tasks.isEmpty()) throw new MobiException("You currently have no tasks :)");
+        if (tasks.isEmpty()) {
+            throw new MobiException("You currently have no tasks :)");
+        }
 
         try {
             LocalDate tDate = DateParser.parse(date).toLocalDate();

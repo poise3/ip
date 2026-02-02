@@ -9,7 +9,7 @@ import mobi.ui.Ui;
 import java.io.IOException;
 
 public class DeleteCommand implements Command {
-    String number;
+    private final String number;
 
     public DeleteCommand(String num) {
         this.number = num;
@@ -20,8 +20,8 @@ public class DeleteCommand implements Command {
         try {
             int num = Integer.parseInt(number);
             if (num <= tasks.size() && num > 0) {
-                System.out.println("Noted. I've removed this task:: ");
-                System.out.println(tasks.get(num - 1).toString());
+                ui.showMessage("Noted. I've removed this task: ");
+                ui.showMessage(tasks.get(num - 1).toString());
                 tasks.remove(num - 1);
             } else {
                 throw new MobiException("Please enter a number from the list :)");

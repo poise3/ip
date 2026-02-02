@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 public class EventCommand implements Command {
-    String task;
+    private final String task;
 
     public EventCommand(String task) {
         this.task = task;
@@ -21,12 +21,14 @@ public class EventCommand implements Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
-        if (!task.contains("/from") || !task.contains("/to")) throw new MobiException("Please specify from/to dates with '/from' and '/to' :)");
+        if (!task.contains("/from") || !task.contains("/to")) {
+            throw new MobiException("Please specify from/to dates with '/from' and '/to' :)");
+        }
         String[] parts = task.trim().split("(/from|/to)");
         if (parts.length < 3) {
-            throw new MobiException("You need to specify the start/end dates :)");
+            throw new MobiException("You need to specify the from/to dates :)");
         } else if (parts.length > 3) {
-            throw new MobiException("Invalid input (only write /from and /end once please!) :)");
+            throw new MobiException("Invalid input (only write /from and /to once please!) :)");
         }
 
         try {

@@ -9,7 +9,7 @@ import mobi.ui.Ui;
 import java.io.IOException;
 
 public class TodoCommand implements Command {
-    String task;
+    private final String task;
 
     public TodoCommand(String task) {
         this.task = task;

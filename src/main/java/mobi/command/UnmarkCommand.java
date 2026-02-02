@@ -8,7 +8,7 @@ import mobi.ui.Ui;
 import java.io.IOException;
 
 public class UnmarkCommand implements Command {
-    String number;
+    private final String number;
 
     public UnmarkCommand(String input) {
         this.number = input;
