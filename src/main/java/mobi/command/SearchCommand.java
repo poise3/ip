@@ -11,13 +11,33 @@ import mobi.ui.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the search command.
+ */
 public class SearchCommand implements Command {
     String date;
 
+    /**
+     * Initializes SearchCommand object with task description
+     *
+     * @param date the date to search
+     */
     public SearchCommand(String date) {
         this.date = date;
     }
 
+    /**
+     * Executes the search command.
+     * <p>
+     * Loops through the task list, displaying every
+     * task that matches the input date.
+     * </p>
+     *
+     * @param tasks the current {@link TaskList}
+     * @param ui the {@link Ui} for displaying messages
+     * @param store the {@link Storage} for saving tasks
+     * @throws MobiException if the input is an invalid date
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         if (tasks.isEmpty()) throw new MobiException("You currently have no tasks :)");

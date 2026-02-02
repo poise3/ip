@@ -8,13 +8,34 @@ import mobi.task.TaskList;
 import mobi.ui.Ui;
 import java.io.IOException;
 
+/**
+ * Represents the delete command.
+ */
 public class DeleteCommand implements Command {
     String number;
 
+    /**
+     * Initializes DeleteCommand object with number of task to delete
+     *
+     * @param num the number of the task to delete, as a string
+     */
     public DeleteCommand(String num) {
         this.number = num;
     }
 
+    /**
+     * Executes the delete command.
+     * <p>
+     * Removes the indicated task from the task list, and saves
+     * the updated task list to storage.
+     * </p>
+     *
+     * @param tasks the current {@link TaskList}
+     * @param ui the {@link Ui} for displaying messages
+     * @param store the {@link Storage} for saving tasks
+     * @throws MobiException if the input is not a valid number
+     *                       or if saving to file fails
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         try {

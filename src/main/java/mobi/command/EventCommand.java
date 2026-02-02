@@ -12,13 +12,34 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents the event command.
+ */
 public class EventCommand implements Command {
     String task;
 
+    /**
+     * Initializes EventCommand object with task description
+     *
+     * @param task the task description
+     */
     public EventCommand(String task) {
         this.task = task;
     }
 
+    /**
+     * Executes the event command.
+     * <p>
+     * Creates a new Event task, saves it to a task list, updates
+     * storage and displays confirmation message to user.
+     * </p>
+     *
+     * @param tasks the current {@link TaskList}
+     * @param ui the {@link Ui} for displaying messages
+     * @param store the {@link Storage} for saving tasks
+     * @throws MobiException if inputs are invalid (wrong argument/date formats)
+     *                       or if saving to file fails
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         if (!task.contains("/from") || !task.contains("/to")) throw new MobiException("Please specify from/to dates with '/from' and '/to' :)");

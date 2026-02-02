@@ -5,8 +5,27 @@ import mobi.exception.MobiException;
 
 import java.util.Set;
 
+/**
+ * Handles parsing of user inputs.
+ * <p>
+ * The Parser class validates and parses user input before
+ * creating a corresponding {@link Command} object to return to the Mobi Chatbot.
+ * Throws a {@link MobiException} if the input is invalid or incomplete.
+ * </p>
+ */
 public class Parser {
 
+    /**
+     * Parses raw user input string and returns the corresponding {@link Command}.
+     * <p>
+     * Splits input by whitespace into command and arguments. Throws {@link MobiException}
+     * if the command and arguments are invalid or if they are missing.
+     * </p>
+     *
+     * @param input the raw user input string
+     * @return a {@link Command} object corresponding to the user input
+     * @throws MobiException if the input is invalid or missing required arguments
+     */
     public Command parse(String input) throws MobiException {
         String[] inputs = input.trim().split(" ", 2);
         String command = inputs[0];
