@@ -2,6 +2,7 @@ package mobi.command;
 
 import mobi.exception.MobiException;
 import mobi.storage.Storage;
+import mobi.task.Task;
 import mobi.task.TaskList;
 import mobi.ui.Ui;
 
@@ -9,15 +10,15 @@ import mobi.ui.Ui;
  * Represents the find command.
  */
 public class FindCommand implements Command {
-    private final String task;
+    private final String description;
 
     /**
      * Constructs an UnmarkCommand for the specified task number.
      *
-     * @param task the task description
+     * @param description the task description
      */
-    public FindCommand(String task) {
-        this.task = task;
+    public FindCommand(String description) {
+        this.description = description;
     }
 
     /**
@@ -39,8 +40,9 @@ public class FindCommand implements Command {
         }
 
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDesc().contains(this.task)) {
-                ui.showMessage((i + 1) + "." + tasks.get(i));
+            Task task = tasks.get(i);
+            if (task.getDesc().contains(this.description)) {
+                ui.showMessage((i + 1) + "." + task);
             }
         }
     }

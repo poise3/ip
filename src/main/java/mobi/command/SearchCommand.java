@@ -5,6 +5,7 @@ import mobi.parser.DateParser;
 import mobi.storage.Storage;
 import mobi.task.Deadline;
 import mobi.task.Event;
+import mobi.task.Task;
 import mobi.task.TaskList;
 import mobi.ui.Ui;
 
@@ -18,7 +19,7 @@ public class SearchCommand implements Command {
     private final String date;
 
     /**
-     * Initializes SearchCommand object with task description
+     * Initializes SearchCommand object with date to find
      *
      * @param date the date to search
      */
@@ -45,17 +46,18 @@ public class SearchCommand implements Command {
         }
 
         try {
-            LocalDate tDate = DateParser.parse(date).toLocalDate();
+            LocalDate findDate = DateParser.parse(date).toLocalDate();
             ui.showMessage("Here are the tasks on this specific date:");
             for (int i = 0; i < tasks.size(); i++) {
-                LocalDate lDate = null;
-                if (tasks.get(i) instanceof Deadline d) {
-                    lDate = d.getBy().toLocalDate();
-                } else if (tasks.get(i) instanceof Event e) {
-                    lDate = e.getStart().toLocalDate();
+                Task task = tasks.get(i);
+                LocalDate taskDate = null;
+                if (task instanceof Deadline d) {
+                    taskDate = d.getBy().toLocalDate();
+                } else if (task instanceof Event e) {
+                    taskDate = e.getStart().toLocalDate();
                 }
-                if (lDate != null && lDate.isEqual(tDate)) {
-                    ui.showMessage((i + 1) + "." + tasks.get(i).toString());
+                if (taskDate != null && taskDate.isEqual(findDate)) {
+                    ui.showMessage((i + 1) + "." + task.toString());
                 }
             }
         } catch (DateTimeParseException e) {

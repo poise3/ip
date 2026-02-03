@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class Storage {
     private final Path filePath;
+    private static final int DESC = 2;
+    private static final int DATE_1 = 3;
+    private static final int DATE_2 = 4;
 
     /**
      * Initializes Storage with the specified file path.
@@ -52,10 +55,10 @@ public class Storage {
                 String taskType = parts[0].trim();
                 Task task;
                 switch (taskType) {
-                    case "T" -> task = new Todo(parts[2].trim());
-                    case "D" -> task = new Deadline(parts[2].trim(), DateParser.parse(parts[3].trim()));
-                    case "E" -> task = new Event(parts[2].trim(), DateParser.parse(parts[3].trim()),
-                                    DateParser.parse(parts[4].trim()));
+                    case "T" -> task = new Todo(parts[DESC].trim());
+                    case "D" -> task = new Deadline(parts[DESC].trim(), DateParser.parse(parts[DATE_1].trim()));
+                    case "E" -> task = new Event(parts[DESC].trim(), DateParser.parse(parts[DATE_1].trim()),
+                                                 DateParser.parse(parts[DATE_2].trim()));
                     default -> {
                         continue;
                     }

@@ -4,6 +4,7 @@ import mobi.exception.MobiException;
 import mobi.parser.DateParser;
 import mobi.storage.Storage;
 import mobi.task.Deadline;
+import mobi.task.Task;
 import mobi.task.TaskList;
 import mobi.ui.Ui;
 import java.io.IOException;
@@ -40,9 +41,10 @@ public class DeleteCommand implements Command {
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         try {
             int num = Integer.parseInt(number);
+            Task task = tasks.get(num - 1);
             if (num <= tasks.size() && num > 0) {
                 ui.showMessage("Noted. I've removed this task: ");
-                ui.showMessage(tasks.get(num - 1).toString());
+                ui.showMessage(task.toString());
                 tasks.remove(num - 1);
             } else {
                 throw new MobiException("Please enter a number from the list :)");

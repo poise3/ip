@@ -2,6 +2,7 @@ package mobi.command;
 
 import mobi.exception.MobiException;
 import mobi.storage.Storage;
+import mobi.task.Task;
 import mobi.task.TaskList;
 import mobi.ui.Ui;
 
@@ -39,10 +40,11 @@ public class UnmarkCommand implements Command {
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         try {
             int num = Integer.parseInt(number);
-            tasks.get(num - 1).markNotDone();
+            Task task = tasks.get(num - 1);
+            task.markNotDone();
             store.saveTasks(tasks.getAll());
             ui.showMessage("OK, I've marked this task as not done yet:");
-            ui.showMessage("[" + tasks.get(num - 1).getStatusIcon() + "] " + tasks.get(num - 1).toString());
+            ui.showMessage("[" + task.getStatusIcon() + "] " + task.toString());
         } catch (NumberFormatException e) {
             throw new MobiException("For marking, please enter a number :)");
         } catch (IOException e) {
