@@ -7,8 +7,8 @@ public class Ui {
 
     public void showWelcome() {
         System.out.println("____________________________________________________________\n" +
-                " Hello! I'm mobi.Mobi\n" +
-                " What can I do for you?\n" +
+                " Hello! I'm Mobi (•⩊•)\n" +
+                " Any commands for me?\n" +
                 "____________________________________________________________\n");
     }
 
