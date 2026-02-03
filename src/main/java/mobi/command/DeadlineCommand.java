@@ -15,15 +15,15 @@ import java.time.format.DateTimeParseException;
  * Represents the deadline command.
  */
 public class DeadlineCommand implements Command {
-    private final String task;
+    private final String arguments;
 
     /**
      * Initializes DeadlineCommand object with task description
      *
-     * @param task the task description
+     * @param arguments command arguments (description, /by date)
      */
-    public DeadlineCommand(String task) {
-        this.task = task;
+    public DeadlineCommand(String arguments) {
+        this.arguments = arguments;
     }
 
     /**
@@ -41,8 +41,10 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
-        if (!task.contains("/by")) throw new MobiException("Please specify deadline with '/by' :)");
-        String[] parts = task.trim().split("/by");
+        if (!arguments.contains("/by")) {
+            throw new MobiException("Please specify deadline with '/by' :)");
+        }
+        String[] parts = arguments.trim().split("/by");
         if (parts.length < 2) {
             throw new MobiException("You need to specify the deadline :)");
         } else if (parts.length > 2) {

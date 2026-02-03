@@ -12,15 +12,15 @@ import java.io.IOException;
  * Represents the todo command.
  */
 public class TodoCommand implements Command {
-    private final String task;
+    private final String description;
 
     /**
      * Initializes TodoCommand object with task description
      *
-     * @param task the task description
+     * @param description task description
      */
-    public TodoCommand(String task) {
-        this.task = task;
+    public TodoCommand(String description) {
+        this.description = description;
     }
 
     /**
@@ -39,7 +39,7 @@ public class TodoCommand implements Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         try {
-            tasks.add(new Todo(task));
+            tasks.add(new Todo(description));
             store.saveTasks(tasks.getAll());
         } catch (IOException e) {
             throw new MobiException("File save error :/");

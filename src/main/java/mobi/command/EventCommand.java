@@ -16,15 +16,15 @@ import java.time.format.DateTimeParseException;
  * Represents the event command.
  */
 public class EventCommand implements Command {
-    private final String task;
+    private final String arguments;
 
     /**
      * Initializes EventCommand object with task description
      *
-     * @param task the task description
+     * @param arguments command arguments (description, /from date, /to date)
      */
-    public EventCommand(String task) {
-        this.task = task;
+    public EventCommand(String arguments) {
+        this.arguments = arguments;
     }
 
     /**
@@ -42,10 +42,10 @@ public class EventCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
-        if (!task.contains("/from") || !task.contains("/to")) {
+        if (!arguments.contains("/from") || !arguments.contains("/to")) {
             throw new MobiException("Please specify from/to dates with '/from' and '/to' :)");
         }
-        String[] parts = task.trim().split("(/from|/to)");
+        String[] parts = arguments.trim().split("(/from|/to)");
         if (parts.length < 3) {
             throw new MobiException("You need to specify the from/to dates :)");
         } else if (parts.length > 3) {
