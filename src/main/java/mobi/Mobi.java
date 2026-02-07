@@ -17,6 +17,7 @@ public class Mobi
     private TaskList tasks;
     private final Storage store;
     private final Parser parser;
+    private static final String DEFAULT_FILE_PATH = "./data/tasklist.txt";
 
     /**
      * Initializes Mobi instance.
@@ -38,32 +39,25 @@ public class Mobi
     }
 
     /**
-     * Starts the main loop of the application, reading
-     * user inputs, executing them and showing output to user.
+     * Called with JavaFX when launching.
      */
-    public void run() {
-        ui.showWelcome();
-        String userInput = ui.readCommand();
-        while (!userInput.equals("bye")) {
-            ui.showLine();
-            try {
-                Command command = parser.parse(userInput);
-                command.execute(tasks, ui, store);
-            } catch (MobiException e) {
-                ui.showError(e.getMessage());
-            }
-            ui.showLine();
-            userInput = ui.readCommand();
-        }
-        ui.showExit();
+    public Mobi() {
+        this(DEFAULT_FILE_PATH);
     }
 
     /**
-     * When application runs, creates Mobi instance with
-     * specified file path and runs it.
+     * Generates a response for the user's chat message.
      */
-    public static void main(String[] args) {
-        new Mobi("./data/tasklist.txt").run();
+    public String getResponse(String input) {
+        String response = "invalid";
+        try {
+            Command command = parser.parse(input);
+            command.execute(tasks, ui, store);
+            response = ui.getResponse();
+        } catch (MobiException e) {
+            return e.getMessage();
+        }
+        return response;
     }
 
 }
