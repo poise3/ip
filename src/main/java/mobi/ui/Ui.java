@@ -4,18 +4,15 @@ import java.util.Scanner;
 
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
+    private StringBuilder sb = new StringBuilder();
 
     public void showWelcome() {
-        System.out.println("____________________________________________________________\n" +
-                " Hello! I'm Mobi (•⩊•)\n" +
-                " Any commands for me?\n" +
-                "____________________________________________________________\n");
+        sb.append("Greetings! I'm Mobi :D\n");
+        sb.append("Any commands for me?\n");
     }
 
     public void showExit() {
-        System.out.println("____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n");
+        sb.append("Bye. Hope to see you again soon!\n");
     }
 
     public String readCommand() {
@@ -23,7 +20,7 @@ public class Ui {
     }
 
     public void showMessage(String message) {
-        System.out.println(message);
+        sb.append(message).append("\n");
     }
 
     public void showLoadingError() {
@@ -36,5 +33,11 @@ public class Ui {
 
     public void showError(String error) {
         System.out.println("Error: " + error);
+    }
+
+    public String getResponse() {
+        String response = sb.toString();
+        sb.setLength(0);
+        return response;
     }
 }

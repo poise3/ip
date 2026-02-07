@@ -44,7 +44,8 @@ public class Parser {
             case "delete" -> new DeleteCommand(inputs[1]);
             case "search" -> new SearchCommand(inputs[1]);
             case "find" -> new FindCommand(inputs[1]);
-            default -> throw new MobiException("please enter valid command");
+            case "bye" -> new ByeCommand();
+            default -> throw new MobiException("I don't understand your command :/");
         };
     }
 

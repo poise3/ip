@@ -40,6 +40,9 @@ public class UnmarkCommand implements Command {
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
         try {
             int num = Integer.parseInt(number);
+            if (num < 1 || num > tasks.size() - 1) {
+                throw new MobiException("Please enter a valid number!!");
+            }
             Task task = tasks.get(num - 1);
             task.markNotDone();
             store.saveTasks(tasks.getAll());
