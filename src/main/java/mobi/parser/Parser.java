@@ -42,6 +42,7 @@ public class Parser {
             case "search" -> new SearchCommand(inputs[1]);
             case "find" -> new FindCommand(inputs[1]);
             case "bye" -> new ByeCommand();
+            case "sort"-> new SortCommand(inputs[1]);
             default -> throw new MobiException("I don't understand your command :/");
         };
     }

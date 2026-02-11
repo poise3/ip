@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * </p>
  */
 public class TaskList {
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks;
 
     /**
      * Initializes a TaskList with a list of tasks.
@@ -85,4 +85,5 @@ public class TaskList {
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
+
 }
