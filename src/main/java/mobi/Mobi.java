@@ -49,6 +49,10 @@ public class Mobi
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        if (input.isBlank()) {
+            return "You said something? :/";
+        }
+
         String response = "invalid";
         try {
             Command command = parser.parse(input);

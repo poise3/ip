@@ -11,7 +11,7 @@ import java.io.IOException;
  * Represents the mark command.
  */
 public class MarkCommand implements Command {
-    private final String number;
+    private final String numberStr;
 
     /**
      * Initializes MarkCommand object with number of task to mark
@@ -19,7 +19,7 @@ public class MarkCommand implements Command {
      * @param input the number of the task to mark, as a string
      */
     public MarkCommand(String input) {
-        this.number = input;
+        this.numberStr = input;
     }
 
     /**
@@ -32,8 +32,7 @@ public class MarkCommand implements Command {
      * @param tasks the current {@link TaskList}
      * @param ui the {@link Ui} for displaying messages
      * @param store the {@link Storage} for saving tasks
-     * @throws MobiException if the input is not a valid number
-     *                       or if saving to file fails
+     * @throws MobiException if saving to file fails
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
@@ -41,20 +40,43 @@ public class MarkCommand implements Command {
         assert ui != null : "Ui should not be null";
         assert store != null : "Storage should not be null";
 
+        int num = parseNumberStr(numberStr, tasks.size());
+        Task task = tasks.get(num - 1);
+
+        task.markAsDone();
+        ui.showMessage("Nice! I've marked this task as done:");
+        ui.showMessage("[" + task.getStatusIcon() + "] " + task.toString());
+
         try {
-            int num = Integer.parseInt(number);
-            if (num < 1 || num > tasks.size() - 1) {
-                throw new MobiException("Please enter a valid number!!");
-            }
-            Task task = tasks.get(num - 1);
-            task.markAsDone();
             store.saveTasks(tasks.getAll());
-            ui.showMessage("Nice! I've marked this task as done:");
-            ui.showMessage("[" + task.getStatusIcon() + "] " + task.toString());
-        } catch (NumberFormatException e) {
-            throw new MobiException("For marking, please enter a number :)");
         } catch (IOException e) {
             throw new MobiException("File save error :/");
         }
+    }
+
+    /**
+     * Parses input number.
+     * <p>
+     * Checks if input number is valid and returns parsed number.
+     * </p>
+     *
+     * @param numberStr the input string
+     * @param taskListSize size of the current task list
+     * @throws MobiException if input is invalid (not a number or out of bounds)
+     */
+    public int parseNumberStr(String numberStr, int taskListSize) throws MobiException {
+        int num;
+
+        try {
+            num = Integer.parseInt(numberStr);
+        } catch (NumberFormatException e) {
+            throw new MobiException("Please enter a number :)");
+        }
+
+        if (num < 1 || num > taskListSize) {
+            throw new MobiException("Please enter a number from the list :)");
+        }
+
+        return num;
     }
 }

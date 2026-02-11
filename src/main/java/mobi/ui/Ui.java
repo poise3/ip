@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
-    private StringBuilder sb = new StringBuilder();
+    private final StringBuilder sb = new StringBuilder();
+    private static final String WELCOME_MESSAGE = "Greetings! I'm Mobi :D\nAny commands for me?\n";
+    private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
 
     public void showWelcome() {
-        sb.append("Greetings! I'm Mobi :D\n");
-        sb.append("Any commands for me?\n");
+        sb.append(WELCOME_MESSAGE);
     }
 
     public void showExit() {
-        sb.append("Bye. Hope to see you again soon!\n");
+        sb.append(EXIT_MESSAGE);
     }
 
     public String readCommand() {
@@ -39,5 +40,11 @@ public class Ui {
         String response = sb.toString();
         sb.setLength(0);
         return response;
+    }
+
+    public void showTaskAdded(String task, int newSize) {
+        this.showMessage("Got it. I've added this task: ");
+        this.showMessage(task);
+        this.showMessage("Now you have " + newSize + " tasks in the list.");
     }
 }
