@@ -22,17 +22,13 @@ public class Parser {
      * if the command and arguments are invalid or if they are missing.
      * </p>
      *
-     * @param input the raw user input string
+     * @param userInput the raw user input string
      * @return a {@link Command} object corresponding to the user input
-     * @throws MobiException if the input is invalid or missing required arguments
+     * @throws MobiException if user input command is invalid (not part of the specified)
      */
-    public Command parse(String input) throws MobiException {
-        String[] inputs = input.trim().split(" ", 2);
+    public Command parse(String userInput) throws MobiException {
+        String[] inputs = splitInput(userInput);
         String command = inputs[0].toLowerCase();
-
-        if (Set.of("mark", "unmark", "todo", "deadline", "event", "delete").contains(command) && inputs.length < 2) {
-            throw new MobiException("You need to add a description for your task :)");
-        }
 
         return switch (command) {
             case "list" -> new ListCommand();
@@ -47,6 +43,27 @@ public class Parser {
             case "bye" -> new ByeCommand();
             default -> throw new MobiException("I don't understand your command :/");
         };
+    }
+
+    /**
+     * Splits input into command and arguments.
+     * <p>
+     * Checks if inputs are valid, and returns inputs
+     * split by white space.
+     * </p>
+     *
+     * @param userInput user input including command and arguments
+     * @throws MobiException if user input does not contain arguments
+     */
+    public String[] splitInput(String userInput) throws MobiException {
+        String[] inputs = userInput.trim().split(" ", 2);
+        String command = inputs[0].toLowerCase();
+
+        if (Set.of("mark", "unmark", "todo", "deadline", "event", "delete").contains(command) && inputs.length < 2) {
+            throw new MobiException("You need to add a description for your task :)");
+        }
+
+        return inputs;
     }
 
 }

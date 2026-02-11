@@ -1,9 +1,7 @@
 package mobi.command;
 
 import mobi.exception.MobiException;
-import mobi.parser.DateParser;
 import mobi.storage.Storage;
-import mobi.task.Deadline;
 import mobi.task.Task;
 import mobi.task.TaskList;
 import mobi.ui.Ui;
@@ -13,7 +11,7 @@ import java.io.IOException;
  * Represents the delete command.
  */
 public class DeleteCommand implements Command {
-    private final String number;
+    private final String numberStr;
 
     /**
      * Initializes DeleteCommand object with number of task to delete
@@ -21,7 +19,7 @@ public class DeleteCommand implements Command {
      * @param num the number of the task to delete, as a string
      */
     public DeleteCommand(String num) {
-        this.number = num;
+        this.numberStr = num;
     }
 
     /**
@@ -34,24 +32,16 @@ public class DeleteCommand implements Command {
      * @param tasks the current {@link TaskList}
      * @param ui the {@link Ui} for displaying messages
      * @param store the {@link Storage} for saving tasks
-     * @throws MobiException if the input is not a valid number
-     *                       or if saving to file fails
+     * @throws MobiException if saving to file fails
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
-        try {
-            int num = Integer.parseInt(number);
-            Task task = tasks.get(num - 1);
-            if (num <= tasks.size() && num > 0) {
-                ui.showMessage("Noted. I've removed this task: ");
-                ui.showMessage(task.toString());
-                tasks.remove(num - 1);
-            } else {
-                throw new MobiException("Please enter a number from the list :)");
-            }
-        } catch (NumberFormatException e) {
-            throw new MobiException("For deletion, please enter a number :)");
-        }
+        int num = parseNumberStr(numberStr, tasks.size());
+        Task task = tasks.get(num - 1);
+
+        ui.showMessage("Noted. I've removed this task: ");
+        ui.showMessage(task.toString());
+        tasks.remove(num - 1);
 
         try {
             store.saveTasks(tasks.getAll());
@@ -59,5 +49,31 @@ public class DeleteCommand implements Command {
             throw new MobiException("File save error :/");
         }
         ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+    }
+
+    /**
+     * Parses input number.
+     * <p>
+     * Checks if input number is valid and returns parsed number.
+     * </p>
+     *
+     * @param numberStr the input string
+     * @param taskListSize size of the current task list
+     * @throws MobiException if input is invalid (not a number or out of bounds)
+     */
+    public int parseNumberStr(String numberStr, int taskListSize) throws MobiException {
+        int num;
+
+        try {
+            num = Integer.parseInt(numberStr);
+        } catch (NumberFormatException e) {
+            throw new MobiException("For deletion, please enter a number :)");
+        }
+
+        if (num > taskListSize || num < 1) {
+            throw new MobiException("Please enter a number from the list :)");
+        }
+
+        return num;
     }
 }

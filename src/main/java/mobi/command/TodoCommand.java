@@ -44,8 +44,7 @@ public class TodoCommand implements Command {
         } catch (IOException e) {
             throw new MobiException("File save error :/");
         }
-        ui.showMessage("Got it. I've added this task: ");
-        ui.showMessage(tasks.get(tasks.size() - 1).toString());
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
+
+        ui.showTaskAdded(tasks.get(tasks.size() - 1).toString(), tasks.size());
     }
 }

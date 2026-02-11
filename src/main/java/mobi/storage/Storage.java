@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class Storage {
     private final Path filePath;
+    private static final String DONE = "1";
     private static final int DESC = 2;
     private static final int DATE_1 = 3;
     private static final int DATE_2 = 4;
@@ -63,7 +64,7 @@ public class Storage {
                         continue;
                     }
                 }
-                if (parts[1].trim().equals("1")) {
+                if (parts[1].trim().equals(DONE)) {
                     task.markAsDone();
                 }
                 tasks.add(task);

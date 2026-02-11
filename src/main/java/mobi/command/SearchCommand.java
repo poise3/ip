@@ -37,7 +37,7 @@ public class SearchCommand implements Command {
      * @param tasks the current {@link TaskList}
      * @param ui the {@link Ui} for displaying messages
      * @param store the {@link Storage} for saving tasks
-     * @throws MobiException if the input is an invalid date
+     * @throws MobiException if the input is an invalid date or task list is empty
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {

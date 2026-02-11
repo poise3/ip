@@ -36,14 +36,39 @@ public class DeadlineCommand implements Command {
      * @param tasks the current {@link TaskList}
      * @param ui the {@link Ui} for displaying messages
      * @param store the {@link Storage} for saving tasks
-     * @throws MobiException if inputs are invalid (wrong argument/date formats)
-     *                       or if saving to file fails
+     * @throws MobiException if saving to file fails
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
+        String[] parts = parseArguments(arguments);
+
+        try {
+            LocalDateTime by = parseDate(parts[1].trim());
+
+            tasks.add(new Deadline(parts[0].trim(), by));
+            store.saveTasks(tasks.getAll());
+        } catch (IOException e) {
+            throw new MobiException("File save error :/");
+        }
+
+        ui.showTaskAdded(tasks.get(tasks.size() - 1).toString(), tasks.size());
+    }
+
+    /**
+     * Parses deadline task arguments.
+     * <p>
+     * Checks if inputs are valid, and returns arguments
+     * split by /from and /to.
+     * </p>
+     *
+     * @param arguments task arguments
+     * @throws MobiException if inputs are invalid (missing /by or missing args)
+     */
+    public String[] parseArguments(String arguments) throws MobiException {
         if (!arguments.contains("/by")) {
             throw new MobiException("Please specify deadline with '/by' :)");
         }
+
         String[] parts = arguments.trim().split("/by");
         if (parts.length < 2) {
             throw new MobiException("You need to specify the deadline :)");
@@ -51,17 +76,24 @@ public class DeadlineCommand implements Command {
             throw new MobiException("Invalid input (only write /by deadline once please!) :)");
         }
 
+        return parts;
+    }
+
+    /**
+     * Parses date.
+     * <p>
+     * Checks if input date is in the correct format,
+     * before returning the parsed date.
+     * </p>
+     *
+     * @param date task date
+     * @throws MobiException if inputs are invalid (wrong date formats)
+     */
+    public LocalDateTime parseDate(String date) throws MobiException {
         try {
-            LocalDateTime by = DateParser.parse(parts[1].trim());
-            tasks.add(new Deadline(parts[0].trim(), by));
-            store.saveTasks(tasks.getAll());
-        } catch (IOException e) {
-            throw new MobiException("File save error :/");
+            return DateParser.parse(date);
         } catch (DateTimeParseException e) {
-            throw new MobiException("You entered the date in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
+            throw new MobiException("You entered the dates in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
         }
-        ui.showMessage("Got it. I've added this task: ");
-        ui.showMessage(tasks.get(tasks.size() - 1).toString());
-        ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");
     }
 }
