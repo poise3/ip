@@ -27,6 +27,7 @@ public class Parser {
      * @throws MobiException if the input is invalid or missing required arguments
      */
     public Command parse(String input) throws MobiException {
+        assert input != null: "Parser input should not be null";
         String[] inputs = input.trim().split(" ", 2);
         String command = inputs[0].toLowerCase();
 
