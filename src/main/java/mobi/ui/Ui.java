@@ -24,7 +24,7 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        System.out.println("Error loading tasks :(");
+        sb.append("Error loading tasks :(").append("\n");
     }
 
     public void showLine() {
