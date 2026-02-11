@@ -52,20 +52,31 @@ public class Storage {
             List<String> lines = Files.readAllLines(filePath);
             for (String line : lines) {
                 String[] parts = line.split(" \\||- ");
+                assert parts.length >= 3: "Invalid task line/missing arguments";
+
                 String taskType = parts[0].trim();
                 Task task;
                 switch (taskType) {
-                    case "T" -> task = new Todo(parts[DESC].trim());
-                    case "D" -> task = new Deadline(parts[DESC].trim(), DateParser.parse(parts[DATE_1].trim()));
-                    case "E" -> task = new Event(parts[DESC].trim(), DateParser.parse(parts[DATE_1].trim()),
+                case "T":
+                    assert parts.length == 3: "Invalid Todo line: should have 3 args";
+                    task = new Todo(parts[DESC].trim());
+                    break;
+                case "D":
+                    assert parts.length == 4: "Invalid Deadline line: should have 4 args";
+                    task = new Deadline(parts[DESC].trim(), DateParser.parse(parts[DATE_1].trim()));
+                    break;
+                case "E":
+                    assert parts.length == 5: "Invalid Event line: should have 5 args";
+                    task = new Event(parts[DESC].trim(), DateParser.parse(parts[DATE_1].trim()),
                                                  DateParser.parse(parts[DATE_2].trim()));
-                    default -> {
-                        continue;
-                    }
+                    break;
+                default: continue;
                 }
+
                 if (parts[1].trim().equals("1")) {
                     task.markAsDone();
                 }
+
                 tasks.add(task);
             }
         } catch (IOException e) {
@@ -87,6 +98,8 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) throws IOException {
         List<String> fileStrings = new ArrayList<>();
         for (Task task : tasks) {
+            String fileString = task.toFileString();
+            assert fileString != null: "Converted file string should not be null";
             fileStrings.add(task.toFileString());
         }
 
