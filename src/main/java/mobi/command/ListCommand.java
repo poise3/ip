@@ -23,6 +23,10 @@ public class ListCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert store != null : "Storage should not be null";
+
         if (tasks.isEmpty()) {
             throw new MobiException("You currently have no tasks :)");
         }

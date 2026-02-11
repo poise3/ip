@@ -18,6 +18,7 @@ public class TaskList {
      * @param taskList the initial list of tasks, loaded from a txt file
      */
     public TaskList(ArrayList<Task> taskList) {
+        assert taskList != null: "Loaded task list should not be null";
         this.tasks = taskList;
     }
 
@@ -44,6 +45,7 @@ public class TaskList {
      * @return the task at the given index
      */
     public Task get(int index) {
+        assert index >= 0 && index < tasks.size(): "Input index is not valid (out of bounds)";
         return tasks.get(index);
     }
 
@@ -53,6 +55,7 @@ public class TaskList {
      * @param index the index of the task to remove
      */
     public void remove(int index) {
+        assert index >= 0 && index < tasks.size(): "Input index is not valid (out of bounds)";
         this.tasks.remove(index);
     }
 
