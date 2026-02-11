@@ -42,6 +42,10 @@ public class EventCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert store != null : "Storage should not be null";
+
         String[] parts = parseArguments(arguments);
 
         try {
