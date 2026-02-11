@@ -39,6 +39,10 @@ public class DeleteCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert store != null : "Storage should not be null";
+
         try {
             int num = Integer.parseInt(number);
             Task task = tasks.get(num - 1);

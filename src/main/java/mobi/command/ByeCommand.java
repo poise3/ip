@@ -22,6 +22,10 @@ public class ByeCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert store != null : "Storage should not be null";
+
         ui.showMessage("Bye!");
         Platform.exit();
     }

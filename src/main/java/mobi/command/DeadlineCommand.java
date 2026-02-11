@@ -41,6 +41,10 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage store) throws MobiException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert store != null : "Storage should not be null";
+
         if (!arguments.contains("/by")) {
             throw new MobiException("Please specify deadline with '/by' :)");
         }
