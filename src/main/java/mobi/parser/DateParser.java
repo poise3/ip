@@ -20,11 +20,14 @@ public class DateParser {
     /** Formatter that supports multiple date/time patterns. */
     private static final DateTimeFormatter FORMATTER =
             new DateTimeFormatterBuilder()
+                    .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd, HH:mm"))
+                    .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd, HHmm"))
                     .appendOptional(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-                    .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
-                    .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy HHmm"))
+                    .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy, HH:mm"))
+                    .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy, HHmm"))
                     .appendOptional(DateTimeFormatter.ofPattern("d/M/yyyy"))
                     .appendOptional(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"))
+                    .appendOptional(DateTimeFormatter.ofPattern("MMM d yyyy, HHmm"))
                     .appendOptional(DateTimeFormatter.ofPattern("MMM d yyyy"))
                     .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                     .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
