@@ -81,9 +81,9 @@ public class EventCommand implements Command {
 
         String[] parts = arguments.trim().split("(/from|/to)");
         if (parts.length < 3) {
-            throw new MobiException("You need to specify the from/to dates :/");
+            throw new MobiException("I need you to specify the from/to dates :/");
         } else if (parts.length > 3) {
-            throw new MobiException("Invalid input (only write /from and /to once please!) :/");
+            throw new MobiException("Only write /from and /to once please! :/");
         }
 
         return parts;
@@ -103,7 +103,7 @@ public class EventCommand implements Command {
         try {
             return DateParser.parse(date);
         } catch (DateTimeParseException e) {
-            throw new MobiException("You entered the dates in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :/");
+            throw new MobiException("That's not a valid date format, please follow yyyy-MM-dd or d/M/yyyy :/");
         }
     }
 }

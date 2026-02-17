@@ -30,7 +30,7 @@ public class ListCommand implements Command {
         if (tasks.isEmpty()) {
             throw new MobiException("You currently have no tasks :)");
         }
-        ui.showMessage("Here are the tasks in your list:");
+        ui.showMessage("Here are your current tasks! :D");
         for (int i = 0; i < tasks.size(); i++) {
             ui.showMessage((i + 1) + "." + tasks.get(i));
         }

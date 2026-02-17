@@ -51,7 +51,7 @@ public class SearchCommand implements Command {
 
         try {
             LocalDate findDate = DateParser.parse(date).toLocalDate();
-            ui.showMessage("Here are the tasks on this specific date:");
+            ui.showMessage("Here you go! Tasks on this specific date:");
             for (int i = 0; i < tasks.size(); i++) {
                 Task task = tasks.get(i);
                 LocalDate taskDate = null;
@@ -65,7 +65,7 @@ public class SearchCommand implements Command {
                 }
             }
         } catch (DateTimeParseException e) {
-            throw new MobiException("You entered the date in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :/");
+            throw new MobiException("That's not a valid date format, please follow yyyy-MM-dd or d/M/yyyy :/");
         }
     }
 }

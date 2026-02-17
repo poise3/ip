@@ -41,7 +41,7 @@ public class UnmarkCommand implements Command {
         Task task = tasks.get(num - 1);
 
         task.markNotDone();
-        ui.showMessage("Nice! I've marked this task as not done:");
+        ui.showMessage("Okay! I've marked this task as not done:");
         ui.showMessage("[" + task.getStatusIcon() + "] " + task.toString());
 
         try {
@@ -67,11 +67,11 @@ public class UnmarkCommand implements Command {
         try {
             num = Integer.parseInt(numberStr);
         } catch (NumberFormatException e) {
-            throw new MobiException("Please enter a number :/");
+            throw new MobiException("I need the task number, please? :/");
         }
 
         if (num < 1 || num > taskListSize) {
-            throw new MobiException("Please enter a number from the list :/");
+            throw new MobiException("That doesn't seem to be a number from the list :/");
         }
 
         return num;

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Ui {
     private final Scanner scanner = new Scanner(System.in);
     private final StringBuilder sb = new StringBuilder();
-    private static final String WELCOME_MESSAGE = "Greetings! I'm Mobi :D\nAny commands for me?\n";
+    private static final String WELCOME_MESSAGE = "Hi friend! I'm Mobi :D\nNeed any help with your task list?\n";
     private static final String EXIT_MESSAGE = "Bye. Hope to see you again soon!\n";
 
     public void showWelcome() {
@@ -25,7 +25,7 @@ public class Ui {
     }
 
     public void showLoadingError() {
-        sb.append("Error loading tasks :(").append("\n");
+        sb.append("Error loading tasks :/").append("\n");
     }
 
     public void showLine() {
@@ -43,8 +43,8 @@ public class Ui {
     }
 
     public void showTaskAdded(String task, int newSize) {
-        this.showMessage("Got it. I've added this task: ");
+        this.showMessage("Okay, task added! ");
         this.showMessage(task);
-        this.showMessage("Now you have " + newSize + " tasks in the list.");
+        this.showMessage("Now you have " + newSize + " tasks :D");
     }
 }

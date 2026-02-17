@@ -50,6 +50,6 @@ public class SortCommand implements Command {
         } catch (IOException e) {
             throw new MobiException("File save error :/");
         }
-        ui.showMessage("Tasks successfully sorted by " + sortCriteria + " :D");
+        ui.showMessage("I have sorted your tasks by " + sortCriteria + " :D");
     }
 }

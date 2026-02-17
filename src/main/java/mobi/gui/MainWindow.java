@@ -32,8 +32,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.getStyleClass().add("scroll-pane");
         dialogContainer.getStyleClass().add("chat-container");
-        dialogContainer.getChildren().add(DialogBox.getMobiDialog("Greetings! I'm Mobi :D\n" +
-                                                                       "Any commands for me?\n",
+        dialogContainer.getChildren().add(DialogBox.getMobiDialog("Hi friend! I'm Mobi :D\n" +
+                                                                       "Need any help with your task list?\n",
                                                                         mobiImage));
     }
 
