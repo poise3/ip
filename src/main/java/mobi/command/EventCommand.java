@@ -52,7 +52,7 @@ public class EventCommand implements Command {
             LocalDateTime start = parseDate(parts[1].trim());
             LocalDateTime end = parseDate(parts[2].trim());
             if (end.isBefore(start)) {
-                throw new MobiException("Invalid dates: end date should be after start date >:(");
+                throw new MobiException("Invalid dates: end date should be after start date :/");
             }
 
             tasks.add(new Event(parts[0].trim(), start, end));
@@ -76,14 +76,14 @@ public class EventCommand implements Command {
      */
     public String[] parseArguments(String arguments) throws MobiException {
         if (!arguments.contains("/from") || !arguments.contains("/to")) {
-            throw new MobiException("Please specify from/to dates with '/from' and '/to' :)");
+            throw new MobiException("Please specify from/to dates with '/from' and '/to' :/");
         }
 
         String[] parts = arguments.trim().split("(/from|/to)");
         if (parts.length < 3) {
-            throw new MobiException("You need to specify the from/to dates :)");
+            throw new MobiException("You need to specify the from/to dates :/");
         } else if (parts.length > 3) {
-            throw new MobiException("Invalid input (only write /from and /to once please!) :)");
+            throw new MobiException("Invalid input (only write /from and /to once please!) :/");
         }
 
         return parts;
@@ -103,7 +103,7 @@ public class EventCommand implements Command {
         try {
             return DateParser.parse(date);
         } catch (DateTimeParseException e) {
-            throw new MobiException("You entered the dates in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
+            throw new MobiException("You entered the dates in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :/");
         }
     }
 }

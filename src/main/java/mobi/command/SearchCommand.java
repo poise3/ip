@@ -65,7 +65,7 @@ public class SearchCommand implements Command {
                 }
             }
         } catch (DateTimeParseException e) {
-            throw new MobiException("You entered the date in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
+            throw new MobiException("You entered the date in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :/");
         }
     }
 }

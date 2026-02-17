@@ -34,15 +34,10 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setStyle(
-                "-fx-background-color: #e8e8e8;" +
-                        "-fx-background-radius: 12;" +
-                        "-fx-padding: 8 12 8 12;"
-        );
-
         dialog.setText(text);
 
         displayPicture.setImage(img);
+        displayPicture.setClip(new javafx.scene.shape.Circle(55, 55, 55));
     }
 
     /**
@@ -52,17 +47,24 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.setAlignment(Pos.TOP_RIGHT);
+        db.dialog.getStyleClass().add("user-bubble");
+        return db;
     }
 
     public static DialogBox getMobiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.dialog.getStyleClass().add("bot-bubble");
         return db;
+    }
+
+    public Label getDialogLabel() {
+        return this.dialog;
     }
 }
 
