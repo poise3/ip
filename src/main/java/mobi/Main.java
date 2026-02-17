@@ -20,6 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             Parent root = fxmlLoader.load();
 
@@ -27,6 +28,7 @@ public class Main extends Application {
             scene.getStylesheets().add(
                     Main.class.getResource("/view/theme.css").toExternalForm()
             );
+            stage.setTitle("Mobi");
             stage.setScene(scene);
 
             fxmlLoader.<MainWindow>getController().setMobi(mobi);  // inject the Mobi instance
