@@ -103,7 +103,11 @@ public class EventCommand implements Command {
         try {
             return DateParser.parse(date);
         } catch (DateTimeParseException e) {
-            throw new MobiException("That's not a valid date format, please follow yyyy-MM-dd or d/M/yyyy :/");
+            throw new MobiException("That's not a valid date format! Please use:\n"
+                                    + "'yyyy-MM-dd', 'd/M/yyyy' or 'MMM d yyyy'.\n"
+                                    + "Optionally, you may specify the time too :)\n"
+                                    + " e.g. 2026-02-20, 23:59\n"
+                                    + "Might be a bit complicated I know... :/");
         }
     }
 }

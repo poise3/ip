@@ -77,7 +77,7 @@ public class DeadlineCommand implements Command {
         if (parts.length < 2) {
             throw new MobiException("I need you to specify the deadline :/");
         } else if (parts.length > 2) {
-            throw new MobiException("Only write /from and /to once please! :/");
+            throw new MobiException("Only write '/by' once please! :/");
         }
 
         return parts;
@@ -97,7 +97,11 @@ public class DeadlineCommand implements Command {
         try {
             return DateParser.parse(date);
         } catch (DateTimeParseException e) {
-            throw new MobiException("That's not a valid date format, please follow yyyy-MM-dd or d/M/yyyy :/");
+            throw new MobiException("That's not a valid date format! Please use:\n"
+                                    + "'yyyy-MM-dd', 'd/M/yyyy' or 'MMM d yyyy'.\n"
+                                    + "Optionally, you may specify the time too :)\n"
+                                    + " e.g. 2026-02-20, 23:59\n"
+                                    + "Might be a bit complicated I know... :/");
         }
     }
 }
