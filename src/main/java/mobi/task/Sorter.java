@@ -68,8 +68,7 @@ public class Sorter {
                 return 2;
             } else if (task instanceof Event) {
                 return 3;
-            }
-            else {
+            } else {
                 return 4;
             }
         }));

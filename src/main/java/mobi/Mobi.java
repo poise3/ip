@@ -39,7 +39,7 @@ public class Mobi
     }
 
     /**
-     * Called with JavaFX when launching.
+     * Calls default constructor with JavaFX when launching.
      */
     public Mobi() {
         this(DEFAULT_FILE_PATH);
