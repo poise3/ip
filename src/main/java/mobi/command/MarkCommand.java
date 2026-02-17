@@ -70,11 +70,11 @@ public class MarkCommand implements Command {
         try {
             num = Integer.parseInt(numberStr);
         } catch (NumberFormatException e) {
-            throw new MobiException("Please enter a number :)");
+            throw new MobiException("Please enter a number :/");
         }
 
         if (num < 1 || num > taskListSize) {
-            throw new MobiException("Please enter a number from the list :)");
+            throw new MobiException("Please enter a number from the list :/");
         }
 
         return num;

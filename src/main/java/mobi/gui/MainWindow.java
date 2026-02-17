@@ -29,16 +29,9 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        dialogContainer.setStyle(
-                "-fx-background-color: #fff7e6;"
-        );
-        dialogContainer.setStyle(
-                "-fx-background-image: url('/images/chatbg.jpg');" +
-                        "-fx-background-repeat: repeat;" +
-                        "-fx-background-position: center;" +
-                        "-fx-background-size: cover;"
-        );
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.getStyleClass().add("scroll-pane");
+        dialogContainer.getStyleClass().add("chat-container");
         dialogContainer.getChildren().add(DialogBox.getMobiDialog("Greetings! I'm Mobi :D\n" +
                                                                        "Any commands for me?\n",
                                                                         mobiImage));
@@ -57,10 +50,17 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = mobi.getResponse(input);
+
+        DialogBox mobiDialog = DialogBox.getMobiDialog(response, mobiImage);
+        if (response.endsWith(":/")) {
+            mobiDialog.getDialogLabel().getStyleClass().add("error-bubble");
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMobiDialog(response, mobiImage)
+                mobiDialog
         );
+
         userInput.clear();
     }
 }

@@ -1,0 +1,39 @@
+.chat-container {
+    -fx-background-image: url('/images/chatbg.jpg');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.input-area {
+    -fx-padding: 10;
+    -fx-background-color: #ffffff;
+}
+
+.chat-bubble {
+    -fx-background-radius: 15;
+    -fx-padding: 8 12 8 12;
+}
+
+.user-bubble {
+    -fx-background-color: #4da6ff;
+    -fx-text-fill: white;
+}
+
+.bot-bubble {
+    -fx-background-color: #e8e8e8;
+    -fx-text-fill: black;
+}
+
+.error-bubble {
+    -fx-background-color: #ffcccc;
+    -fx-text-fill: #990000;
+}
+
+.avatar {
+    -fx-background-radius: 20;
+}
