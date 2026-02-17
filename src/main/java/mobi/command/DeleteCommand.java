@@ -71,11 +71,11 @@ public class DeleteCommand implements Command {
         try {
             num = Integer.parseInt(numberStr);
         } catch (NumberFormatException e) {
-            throw new MobiException("For deletion, please enter a number :/");
+            throw new MobiException("I need the task number, please? :/");
         }
 
         if (num > taskListSize || num < 1) {
-            throw new MobiException("Please enter a number from the list :/");
+            throw new MobiException("That doesn't seem to be a number from the list :/");
         }
 
         return num;

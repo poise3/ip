@@ -70,14 +70,14 @@ public class DeadlineCommand implements Command {
      */
     public String[] parseArguments(String arguments) throws MobiException {
         if (!arguments.contains("/by")) {
-            throw new MobiException("Please specify deadline with '/by' :)");
+            throw new MobiException("Please specify deadline with '/by' :/");
         }
 
         String[] parts = arguments.trim().split("/by");
         if (parts.length < 2) {
-            throw new MobiException("You need to specify the deadline :)");
+            throw new MobiException("I need you to specify the deadline :/");
         } else if (parts.length > 2) {
-            throw new MobiException("Invalid input (only write /by deadline once please!) :)");
+            throw new MobiException("Only write /from and /to once please! :/");
         }
 
         return parts;
@@ -97,7 +97,7 @@ public class DeadlineCommand implements Command {
         try {
             return DateParser.parse(date);
         } catch (DateTimeParseException e) {
-            throw new MobiException("You entered the dates in the wrong format! Please follow yyyy-MM-dd or d/M/yyyy :D");
+            throw new MobiException("That's not a valid date format, please follow yyyy-MM-dd or d/M/yyyy :/");
         }
     }
 }

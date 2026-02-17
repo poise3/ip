@@ -1,6 +1,8 @@
 package mobi.command;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 import mobi.exception.MobiException;
 import mobi.storage.Storage;
 import mobi.task.TaskList;
@@ -26,7 +28,12 @@ public class ByeCommand implements Command {
         assert ui != null : "Ui should not be null";
         assert store != null : "Storage should not be null";
 
-        ui.showMessage("Bye!");
-        Platform.exit();
+        ui.showMessage("See you again!");
+
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished(e -> {
+            Platform.exit();
+        });
+        delay.play();
     }
 }

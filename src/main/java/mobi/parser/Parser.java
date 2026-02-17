@@ -62,7 +62,7 @@ public class Parser {
         String command = inputs[0].toLowerCase();
 
         if (Set.of("mark", "unmark", "todo", "deadline", "event", "delete").contains(command) && inputs.length < 2) {
-            throw new MobiException("You need to add a description for your task :/");
+            throw new MobiException("I need a description for the task :/");
         }
 
         return inputs;
