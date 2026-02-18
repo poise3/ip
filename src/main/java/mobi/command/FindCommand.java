@@ -43,11 +43,19 @@ public class FindCommand implements Command {
             throw new MobiException("You currently have no tasks :)");
         }
 
+        StringBuilder matchingTasks = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            if (task.getDesc().contains(this.description)) {
-                ui.showMessage((i + 1) + "." + task);
+            if (task.getDesc().toLowerCase().contains(this.description.toLowerCase())) {
+                String matchingTask = (i + 1) + "." + task + "\n";
+                matchingTasks.append(matchingTask);
             }
         }
+        if (matchingTasks.isEmpty()) {
+            throw new MobiException("No tasks match that description :)");
+        }
+
+        ui.showMessage("Here you go! Tasks matching fully/partially:");
+        ui.showMessage(matchingTasks.toString());
     }
 }

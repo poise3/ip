@@ -61,8 +61,8 @@ public class Parser {
         String[] inputs = userInput.trim().split(" ", 2);
         String command = inputs[0].toLowerCase();
 
-        if (Set.of("mark", "unmark", "todo", "deadline", "event", "delete").contains(command) && inputs.length < 2) {
-            throw new MobiException("I need a description for the task :/");
+        if (Set.of("mark", "unmark", "todo", "deadline", "event", "delete", "sort", "find", "search").contains(command) && inputs.length < 2) {
+            throw new MobiException("You are missing an argument for the command :/");
         }
 
         return inputs;
